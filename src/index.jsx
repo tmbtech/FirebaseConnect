@@ -1,12 +1,18 @@
 import React from "react";
 
 class FirebaseConnect extends React.Component {
-    state = {
-        firebase: {}
+    constructor(props, state) {
+        super(props, state);
+        const key = props.firebaseKey || "firebaseData";
+        this.state = {
+            [key]: {}
+        };
     }
 
     static propTypes = {
-        children: React.PropTypes.any.isRequired
+        children: React.PropTypes.any.isRequired,
+        url: React.PropTypes.string.isRequired,
+        firebaseKey: React.PropTypes.string
     }
 
     render() {
