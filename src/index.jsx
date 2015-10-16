@@ -1,10 +1,26 @@
-import "core-js/fn/array/for-each";
-import "core-js/fn/array/from";
-import "core-js/fn/map";
-import "core-js/fn/object/get-own-property-symbols";
-import "core-js/fn/object/is";
-import "core-js/fn/object/keys";
-import "core-js/fn/set";
-import Helmet from "./Helmet";
+import React from "react";
 
-export default Helmet;
+class FirebaseConnect extends React.Component {
+    state = {
+        firebase: {}
+    }
+
+    static propTypes = {
+        children: React.PropTypes.any.isRequired
+    }
+
+    render() {
+        const state = this.state;
+        const {children, ...props} = this.props;
+        return (
+            <span>
+            {React.cloneElement(this.props.children, {
+                ...state,
+                ...props
+            })}
+            </span>
+        );
+    }
+}
+
+export default FirebaseConnect;
