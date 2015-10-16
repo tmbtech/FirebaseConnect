@@ -1,2 +1,1 @@
-# FirebaseConnect
-Firebase connect component. 
+Firebase Connect for ReactJS
