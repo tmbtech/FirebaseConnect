@@ -20,7 +20,7 @@ class FirebaseConnect extends React.Component {
         const {children, ...props} = this.props;
         return (
             <span>
-            {React.cloneElement(this.props.children, {
+            {React.cloneElement(children, {
                 ...state,
                 ...props
             })}

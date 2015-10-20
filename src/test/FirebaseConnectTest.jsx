@@ -1,6 +1,13 @@
 /* eslint  react/no-multi-comp: 0 */
 import FirebaseConnect from "../index";
 import React from "react";
+import Firebase from "firebase";
+
+const defaultProps = {
+    url: "domain.com"
+};
+
+var bitCoinUrl = new Firebase("https://publicdata-cryptocurrency.firebaseio.com/bitcoin");
 
 describe("FirebaseConnect", () => {
     let node;
@@ -14,7 +21,7 @@ describe("FirebaseConnect", () => {
 
     it("should be render children", (done) => {
         React.render((
-            <FirebaseConnect>
+            <FirebaseConnect {...defaultProps}>
                 <div id="child">Child Component</div>
             </FirebaseConnect>
         ), node, () => {
@@ -34,7 +41,7 @@ describe("FirebaseConnect", () => {
         });
 
         React.render((
-            <FirebaseConnect>
+            <FirebaseConnect {...defaultProps}>
                 <Child />
             </FirebaseConnect>
         ), node, done);
@@ -52,7 +59,7 @@ describe("FirebaseConnect", () => {
         });
 
         React.render((
-            <FirebaseConnect>
+            <FirebaseConnect {...defaultProps}>
                 <Child />
             </FirebaseConnect>
         ), node, done);
@@ -70,10 +77,24 @@ describe("FirebaseConnect", () => {
         });
 
         React.render((
-            <FirebaseConnect firebaseKey="newDataKey">
+            <FirebaseConnect firebaseKey="newDataKey" {...defaultProps}>
                 <Child />
             </FirebaseConnect>
         ), node, done);
     });
 
+    it("should be able to pass down ref", (done) => {
+        const Child = React.createClass({
+            componentWillMount() {
+                expect(false).to.equal(true);
+            },
+            render() {
+                return null;
+            }
+        });
+        React.render((
+            <FirebaseConnect url={bitCoinUrl}>
+                <Child />
+            </FirebaseConnect>), node, done);
+    });
 });
